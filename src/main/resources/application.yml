@@ -1,0 +1,50 @@
+server:
+  port: 9992
+spring:
+  application:
+    name: svc2
+eureka:
+  client:
+    serviceUrl:
+      registerWithEureka: true
+      fetchRegistry: true
+      defaultZone: http://${EUREKA_SERVER_HOST:suing.logesta.com}:${EUREKA_SERVER_PORT:8888}/eureka
+  instance:
+    preferIpAddress: false
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2  
+    hostname: ${HOSTNAME:localhost}
+
+resilience4j:
+  circuitbreaker:
+    circuit-breaker-aspect-order: 398
+    instances:
+      orderService:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        waitDurationInOpenState: 5s
+        slidingWindowType: COUNT_BASED
+  retry:
+    retry-aspect-order: 399
+    instances:
+      orderService:
+        maxRetryAttempts: 3
+        waitDuration: 500    
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
