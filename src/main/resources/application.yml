@@ -3,17 +3,17 @@ server:
 spring:
   application:
     name: svc2
-eureka:
-  client:
-    serviceUrl:
-      registerWithEureka: true
-      fetchRegistry: true
-      defaultZone: http://${EUREKA_SERVER_HOST:suing.logesta.com}:${EUREKA_SERVER_PORT:8888}/eureka
-  instance:
-    preferIpAddress: false
-    leaseRenewalIntervalInSeconds: 1
-    leaseExpirationDurationInSeconds: 2  
-    hostname: ${HOSTNAME:localhost}
+# eureka:
+#   client:
+#     serviceUrl:
+#       registerWithEureka: true
+#       fetchRegistry: true
+#       defaultZone: http://${EUREKA_SERVER_HOST:suing.logesta.com}:${EUREKA_SERVER_PORT:8888}/eureka
+#   instance:
+#     preferIpAddress: false
+#     leaseRenewalIntervalInSeconds: 1
+#     leaseExpirationDurationInSeconds: 2  
+#     hostname: ${HOSTNAME:localhost}
 
 resilience4j:
   circuitbreaker:

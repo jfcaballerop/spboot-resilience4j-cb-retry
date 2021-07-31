@@ -25,11 +25,14 @@ public class OrderController {
     OrderService orderS;
 
     @GetMapping("/movies/{id}")
-
     public ResponseEntity<StandarResponse<Movie[]>> createOrder(@PathVariable String id) {
         logger.info("********************** CALL inside Controller ************************ ");
         StandarResponse<Movie[]> m = orderS.getOrderList(id);
         return new ResponseEntity<StandarResponse<Movie[]>>(m, HttpStatus.OK);
     }
-
+    @GetMapping("/moviesMock/{id}")
+    public String createOrderMock(@PathVariable String id) {
+        logger.info("********************** CALL inside Controller mock************************ ");
+        return "{ 'id' : '"+ id+"'}";
+    }
 }
