@@ -1,6 +1,8 @@
 package com.circuitbreaker.demo.svc2.controller;
 
-import java.util.List;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.circuitbreaker.demo.svc2.model.Movie;
 import com.circuitbreaker.demo.svc2.model.StandarResponse;
@@ -30,9 +32,17 @@ public class OrderController {
         StandarResponse<Movie[]> m = orderS.getOrderList(id);
         return new ResponseEntity<StandarResponse<Movie[]>>(m, HttpStatus.OK);
     }
+
     @GetMapping("/moviesMock/{id}")
     public String createOrderMock(@PathVariable String id) {
         logger.info("********************** CALL inside Controller mock************************ ");
-        return "{ 'id' : '"+ id+"'}";
+        return "{ 'id' : '" + id + "'}";
+    }
+
+    @GetMapping("/manual")
+    void manual(HttpServletResponse response) throws IOException {
+        response.setHeader("Custom-Header", "foo");
+        response.setStatus(590);
+        response.getWriter().println("Hello World!");
     }
 }
